@@ -35,16 +35,16 @@ with open("AllCards.json", encoding='utf-8') as file:
             original_type_header.append(card_data['originalType']) if card_data.get('originalType') else original_type_header.append('')
             power_header.append(card_data['power']) if card_data.get('power') else power_header.append('')
             toughness_header.append(card_data['toughness']) if card_data.get('toughness') else toughness_header.append('')
-            uuid = card_data['uuid'] if card_data.get('uuid') else ''
-            colors = card_data['colors'] if card_data.get('colors') else ''
-            loyalty = card_data['loyalty'] if card_data.get('loyalty') else ''
-            manaCost = card_data['manaCost'] if card_data.get('manaCost') else ''
-            text = card_data['text'] if card_data.get('text') else ''
-            originalType = card_data['originalType'] if card_data.get('originalType') else ''
-            power = card_data['power'] if card_data.get('power') else ''
-            toughness = card_data['toughness'] if card_data.get('toughness') else ''
-            str = "INSERT INTO CARDS (uuid, name, color, loyalty, mana_cost, text, type, power, toughness) VALUES ({},{},{},{},{},{},{},{},{});\n".format(uuid, name, colors, loyalty, manaCost, text, originalType, power, toughness)
-            file_2.write(str.encode('utf-8'))
+            uuid = str(card_data['uuid']) if card_data.get('uuid') else ''
+            colors = str(card_data['colors']) if card_data.get('colors') else ''
+            loyalty = str(card_data['loyalty']) if card_data.get('loyalty') else ''
+            manaCost = str(card_data['manaCost']) if card_data.get('manaCost') else ''
+            text = str(card_data['text']) if card_data.get('text') else ''
+            originalType = str(card_data['originalType']) if card_data.get('originalType') else ''
+            power = str(card_data['power']) if card_data.get('power') else ''
+            toughness = str(card_data['toughness']) if card_data.get('toughness') else ''
+            string = "INSERT INTO CARDS (uuid, name, color, loyalty, mana_cost, text, type, power, toughness) VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}');\n".format(uuid, name, colors, loyalty, manaCost, text, originalType, power, toughness)
+            file_2.write(string.encode('utf-8'))
         data = {
             'name' : card_name_header,
             'uuid' : uuid_header,
