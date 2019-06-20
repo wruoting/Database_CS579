@@ -1,0 +1,1 @@
+INSERT INTO CARDS (uuid, name, color, loyalty, mana_cost, text, type, power, toughness) VALUES (d850e5bd-592c-548b-8602-9d5735a1b6d9,capital offense,['B'],,{2}{B}{B},target creature gets -x/-x until end of turn, where x is the number of times a capital letter appears in its rules text. (ignore reminder text and flavor text.),,,);
