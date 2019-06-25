@@ -1,13 +1,13 @@
 CREATE TABLE CARDS (
     uuid varchar2(36) NOT NULL PRIMARY KEY,
-    name varchar2(100),
+    name varchar2(200),
     color varchar2(100),
     loyalty varchar2(10),
     mana_cost varchar2(100),
-    text varchar2(100),
+    text varchar2(1000),
     type varchar2(100),
-    power varchar2(3),
-    toughness varchar2(3)
+    power varchar2(5),
+    toughness varchar2(5)
 );
 
 CREATE TABLE DECK (
