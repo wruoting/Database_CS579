@@ -43,6 +43,7 @@ with open("AllCards.json", encoding='utf-8') as file:
             originalType = str(card_data['originalType']).replace("'", '"') if card_data.get('originalType') else ''
             power = str(card_data['power']).replace("'", '"') if card_data.get('power') else ''
             toughness = str(card_data['toughness']).replace("'", '"') if card_data.get('toughness') else ''
+            name = name.replace("'", '"')
             string = "INSERT INTO CARDS (uuid, name, color, loyalty, mana_cost, text, type, power, toughness) VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}');\n".format(uuid, name, colors, loyalty, manaCost, text, originalType, power, toughness)
             file_2.write(string.encode('utf-8'))
         data = {
