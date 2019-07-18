@@ -27,5 +27,5 @@ CREATE TABLE USERS (
 CREATE TABLE PRICE (
     uuid varchar2(24) NOT NULL PRIMARY KEY,
     price float,
-    listing_date date
+    listing_date date NOT NULL PRIMARY KEY
 );
