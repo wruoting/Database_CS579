@@ -11,7 +11,7 @@ CREATE TABLE CARDS (
 );
 
 CREATE TABLE DECK (
-    uuid varchar2(24) NOT NULL,
+    uuid varchar2(36) NOT NULL,
     username varchar2(100) NOT NULL,
     copies INT,
     PRIMARY KEY (uuid, username)
@@ -25,7 +25,7 @@ CREATE TABLE USERS (
 );
 
 CREATE TABLE PRICE (
-    uuid varchar2(24) NOT NULL PRIMARY KEY,
+    uuid varchar2(36) NOT NULL PRIMARY KEY,
     price float,
     listing_date date NOT NULL PRIMARY KEY
 );
