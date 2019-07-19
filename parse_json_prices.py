@@ -21,5 +21,5 @@ with open("AllCards.json", encoding='utf-8') as file:
                     paper_price = paper.get('paper')
                     for listing_date in paper_price:
                         price = paper_price[listing_date]
-                        string = "INSERT INTO PRICE (uuid, price, listing_date) VALUES ('{}','{}',TO_DATE('{}', 'yyyy-mm-dd');\n".format(uuid, price, listing_date)
+                        string = "INSERT INTO PRICE (uuid, price, listing_date) VALUES ('{}','{}',TO_DATE('{}', 'yyyy-mm-dd'));\n".format(uuid, price, listing_date)
                         file_2.write(string.encode('utf-8'))
