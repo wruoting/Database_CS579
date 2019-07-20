@@ -1,4 +1,11 @@
-drop table cards;
-drop table deck;
-drop table price;
-drop table users;
+BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE cards';
+   EXECUTE IMMEDIATE 'DROP TABLE deck';
+   EXECUTE IMMEDIATE 'DROP TABLE price';
+   EXECUTE IMMEDIATE 'DROP TABLE users';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
