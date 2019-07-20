@@ -24,6 +24,7 @@ with open("AllCards.json", encoding='utf-8') as file:
 
     # prices_header = []
     with open("insert_card_query.sql", 'wb') as file_2:
+        file_2.write('set define off;'.encode('utf-8'))
         for name in json_data:
             card_name_header.append(name)
             card_data = json_data[name]
@@ -35,14 +36,15 @@ with open("AllCards.json", encoding='utf-8') as file:
             original_type_header.append(card_data['originalType']) if card_data.get('originalType') else original_type_header.append('')
             power_header.append(card_data['power']) if card_data.get('power') else power_header.append('')
             toughness_header.append(card_data['toughness']) if card_data.get('toughness') else toughness_header.append('')
-            uuid = str(card_data['uuid']).replace("'", '"') if card_data.get('uuid') else ''
-            colors = str(card_data['colors']).replace("'", '"') if card_data.get('colors') else ''
-            loyalty = str(card_data['loyalty']).replace("'", '"') if card_data.get('loyalty') else ''
-            manaCost = str(card_data['manaCost']).replace("'", '"') if card_data.get('manaCost') else ''
-            text = str(card_data['text']).replace("'", '"') if card_data.get('text') else ''
-            originalType = str(card_data['originalType']).replace("'", '"') if card_data.get('originalType') else ''
-            power = str(card_data['power']).replace("'", '"') if card_data.get('power') else ''
-            toughness = str(card_data['toughness']).replace("'", '"') if card_data.get('toughness') else ''
+            
+            uuid = str(card_data['uuid']).replace("'", '"').replace('&amp;', '&') if card_data.get('uuid') else ''
+            colors = str(card_data['colors']).replace("'", '"').replace('&amp;', '&') if card_data.get('colors') else ''
+            loyalty = str(card_data['loyalty']).replace("'", '"').replace('&amp;', '&') if card_data.get('loyalty') else ''
+            manaCost = str(card_data['manaCost']).replace("'", '"').replace('&amp;', '&') if card_data.get('manaCost') else ''
+            text = str(card_data['text']).replace("'", '"').replace('&amp;', '&') if card_data.get('text') else ''
+            originalType = str(card_data['originalType']).replace("'", '"').replace('&amp;', '&') if card_data.get('originalType') else ''
+            power = str(card_data['power']).replace("'", '"').replace('&amp', '&') if card_data.get('power') else ''
+            toughness = str(card_data['toughness']).replace("'", '"').replace('&amp;', '&') if card_data.get('toughness') else ''
             name = name.replace("'", '"')
             string = "INSERT INTO CARDS (uuid, name, color, loyalty, mana_cost, text, type, power, toughness) VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}');\n".format(uuid, name, colors, loyalty, manaCost, text, originalType, power, toughness)
             file_2.write(string.encode('utf-8'))
