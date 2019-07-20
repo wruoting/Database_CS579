@@ -24,8 +24,6 @@ with open("AllCards.json", encoding='utf-8') as file:
 
     # prices_header = []
     with open("insert_card_query.sql", 'wb') as file_2:
-        file_2.write('set define off;\n'.encode('utf-8'))
-        file_2.write('Begin\n'.encode('utf-8'))
         for name in json_data:
             card_name_header.append(name)
             card_data = json_data[name]
@@ -48,8 +46,9 @@ with open("AllCards.json", encoding='utf-8') as file:
             toughness = str(card_data['toughness']).replace("'", '"').replace('&amp;', '&') if card_data.get('toughness') else ''
             name = name.replace("'", '"')
             string = "INSERT INTO CARDS (uuid, name, color, loyalty, mana_cost, text, type, power, toughness) VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}');\n".format(uuid, name, colors, loyalty, manaCost, text, originalType, power, toughness)
+            if '&' in string:
+                file_2.write('set define off;\n'.encode('utf-8'))
             file_2.write(string.encode('utf-8'))
-        file_2.write('End;\n'.encode('utf-8'))
         data = {
             'name' : card_name_header,
             'uuid' : uuid_header,
