@@ -32,7 +32,7 @@ with open("AllCards.json", encoding='utf-8') as file:
             loyalty_header.append(card_data['loyalty']) if card_data.get('loyalty') else loyalty_header.append('')
             mana_cost_header.append(card_data['manaCost']) if card_data.get('manaCost') else mana_cost_header.append('')
             original_text_header.append(card_data['text']) if card_data.get('text') else original_text_header.append('')
-            original_type_header.append(card_data['originalType']) if card_data.get('originalType') else original_type_header.append('')
+            original_type_header.append(card_data['type']) if card_data.get('type') else original_type_header.append('')
             power_header.append(card_data['power']) if card_data.get('power') else power_header.append('')
             toughness_header.append(card_data['toughness']) if card_data.get('toughness') else toughness_header.append('')
             
@@ -41,7 +41,7 @@ with open("AllCards.json", encoding='utf-8') as file:
             loyalty = str(card_data['loyalty']).replace("'", '"').replace('&amp;', '&') if card_data.get('loyalty') else ''
             manaCost = str(card_data['manaCost']).replace("'", '"').replace('&amp;', '&') if card_data.get('manaCost') else ''
             text = str(card_data['text']).replace("'", '"').replace('&amp;', '&') if card_data.get('text') else ''
-            originalType = str(card_data['originalType']).replace("'", '"').replace('&amp;', '&') if card_data.get('originalType') else ''
+            originalType = str(card_data['type']).replace("'", '"').replace('&amp;', '&') if card_data.get('type') else ''
             power = str(card_data['power']).replace("'", '"').replace('&amp', '&') if card_data.get('power') else ''
             toughness = str(card_data['toughness']).replace("'", '"').replace('&amp;', '&') if card_data.get('toughness') else ''
             name = name.replace("'", '"')
