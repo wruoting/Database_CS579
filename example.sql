@@ -37,28 +37,58 @@ INSERT INTO USERS (username, password, name, email) VALUES ('robert', '123456', 
 
 -- PL
 -- Add cards into deck
-CREATE OR REPLACE PROCEDURE add_card_to_deck(card_uuid in cards.uuid%type, user_username in users.username%type)
-IS
-  copies deck%ROWTYPE;
+
+CREATE OR REPLACE PROCEDURE INSERTCARD 
+(CARD_UUID IN cards.uuid%type, USER_USERNAME IN users.username%type)
+AS 
+    current_copies deck.copies%type;
 BEGIN
-  -- get contact based on customer id
-    SELECT
-        current_copies
-    INTO
-        copies
-    FROM
-        DECK
-    WHERE
-        uuid=card_uuid and username=user_username;
-    
-    IF copies = 0 THEN
-        INSERT INTO DECK (uuid, username, copies) VALUES (card_uuid, user_username, 1);
-    ELSE
+    SELECT copies INTO current_copies 
+    FROM 
+        DECK 
+    WHERE uuid=card_uuid AND username=user_username;
+    DBMS_OUTPUT.PUT_LINE( '|| copies||');
+
+    IF current_copies < 4 THEN
         UPDATE DECK SET uuid=card_uuid, username=user_username, copies=current_copies + 1;
     END IF;
-    
-  -- print out contact's information
-  DBMS_OUTPUT.PUT_LINE( '|| copies||');
- 
-END;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND
+    THEN
+        INSERT INTO DECK (uuid, username, copies) VALUES (card_uuid, user_username, 1);
+
+END INSERTCARD;
+
+
+-- Run the stored procedure
+EXECUTE INSERTCARD('8f9a35d5-a3a2-556b-88da-6686da3aaa34', 'robert');
+
+-- Remove card from deck
+
+CREATE OR REPLACE PROCEDURE REMOVECARD 
+(CARD_UUID IN cards.uuid%type, USER_USERNAME IN users.username%type)
+AS 
+    current_copies deck.copies%type;
+BEGIN
+ SELECT copies INTO current_copies 
+    FROM 
+        DECK 
+    WHERE uuid=card_uuid AND username=user_username;
+    IF current_copies = 0 THEN
+        DBMS_OUTPUT.PUT_LINE( '0 copies found');
+    ELSE
+        UPDATE DECK SET uuid=card_uuid, username=user_username, copies=current_copies - 1;
+    END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND
+    THEN
+        DBMS_OUTPUT.PUT_LINE( 'No copies found');
+END REMOVECARD;
+
+--Remove Card run stored procedure
+EXECUTE REMOVECARD('8f9a35d5-a3a2-556b-88da-6686da3aaa34', 'robert');
+
+-- Getting Decks based on what the person added
+SELECT DECK.COPIES, CARDS.* FROM DECK JOIN CARDS ON DECK.UUID=CARDS.UUID WHERE USERNAME='robert';
 
