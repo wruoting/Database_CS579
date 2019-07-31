@@ -30,3 +30,35 @@ SELECT * FROM CARDS WHERE NOT REGEXP_LIKE(POWER, '[^0-9]+') AND CAST(POWER AS IN
 
 -- Find Card prices for a specific card
 SELECT * FROM CARDS JOIN PRICE ON CARDS.UUID=PRICE.UUID WHERE name = 'Llanowar Elves' ORDER BY LISTING_DATE;
+
+
+-- Add users into the database
+INSERT INTO USERS (username, password, name, email) VALUES ('robert', '123456', 'robert', 'robert@gmail.com');
+
+-- PL
+-- Add cards into deck
+CREATE OR REPLACE PROCEDURE add_card_to_deck(card_uuid in cards.uuid%type, user_username in users.username%type)
+IS
+  copies deck%ROWTYPE;
+BEGIN
+  -- get contact based on customer id
+    SELECT
+        current_copies
+    INTO
+        copies
+    FROM
+        DECK
+    WHERE
+        uuid=card_uuid and username=user_username;
+    
+    IF copies = 0 THEN
+        INSERT INTO DECK (uuid, username, copies) VALUES (card_uuid, user_username, 1);
+    ELSE
+        UPDATE DECK SET uuid=card_uuid, username=user_username, copies=current_copies + 1;
+    END IF;
+    
+  -- print out contact's information
+  DBMS_OUTPUT.PUT_LINE( '|| copies||');
+ 
+END;
+
